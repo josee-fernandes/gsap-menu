@@ -1,6 +1,8 @@
 import React from 'react'
 import { BrowserRouter, Switch, Route } from 'react-router-dom'
 
+import './app.scss'
+
 import { Home } from './pages/Home'
 import { Solutions } from './pages/Solutions'
 import { Contact } from './pages/Contact'
