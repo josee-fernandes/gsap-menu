@@ -1,9 +1,23 @@
 import React, { useEffect, useRef } from 'react'
 import { Link } from 'react-router-dom'
 
+import { IHamburger } from '../interfaces/hamburger'
+
 import gsap from 'gsap'
 
-import { IHamburger } from '../interfaces/hamburger'
+import dallas from '../images/dallas.webp'
+import austin from '../images/austin.webp'
+import newyork from '../images/newyork.webp'
+import sanfrancisco from '../images/sanfrancisco.webp'
+import beijing from '../images/beijing.webp'
+
+const cities = [
+   { name: 'Dallas', image: dallas },
+   { name: 'Austin', image: austin },
+   { name: 'New York', image: newyork },
+   { name: 'San Francisco', image: sanfrancisco },
+   { name: 'Beijing', image: beijing },
+]
 
 export const Hamburger: React.FC<IHamburger> = ({ menuState }) => {
    const menu = useRef<HTMLDivElement>(null)
@@ -61,6 +75,30 @@ export const Hamburger: React.FC<IHamburger> = ({ menuState }) => {
          ease: 'power3.inOut'
       })
    }
+
+   const handleCity = (image: string) => {
+      gsap.to(cityBackground.current, {
+         duration: 0,
+         background: `url(${image}) center center / cover`
+      })
+      gsap.to(cityBackground.current, {
+         duration: .4,
+         opacity: 1,
+         ease: 'power3.inOut'
+      })
+      gsap.from(cityBackground.current, {
+         duration: .4,
+         skewY: 2,
+         transformOrigin: 'right top'
+      })
+   }
+
+   const handleCityReturn = () => {
+      gsap.to(cityBackground.current, {
+         duration: .4,
+         opacity: 0
+      })
+   } 
 
    useEffect(() => {
       if(menuState.clicked || (menuState.clicked && !menuState.initial)){
@@ -127,11 +165,15 @@ export const Hamburger: React.FC<IHamburger> = ({ menuState }) => {
                      </div>
                      <div className="locations">
                         Locations: 
-                        <span>Dallas</span>
-                        <span>Austin</span>
-                        <span>New York</span>
-                        <span>San Francisco</span>
-                        <span>Beijing</span>
+                        {cities.map(city => (
+                           <span
+                              key={city.name}
+                              onMouseEnter={() => handleCity(city.image)}
+                              onMouseOut={handleCityReturn}
+                           >
+                              {city.name}
+                           </span>
+                        ))}
                      </div>
                   </div>
                </div>
