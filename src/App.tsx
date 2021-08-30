@@ -5,11 +5,14 @@ import { Home } from './pages/Home'
 import { Solutions } from './pages/Solutions'
 import { Contact } from './pages/Contact'
 
+import { Header } from './components/Header'
+
 export const App = () => {
 
   return (
     <BrowserRouter>
       <div className="app">
+        <Header />
         <div className="container">
           <div className="wrapper">
             <div className="home">
