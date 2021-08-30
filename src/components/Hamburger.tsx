@@ -100,6 +100,24 @@ export const Hamburger: React.FC<IHamburger> = ({ menuState }) => {
       })
    } 
 
+   const handleTextHover = (event: React.MouseEvent<HTMLAnchorElement, MouseEvent>) => {
+      gsap.to(event.target, {
+         duration: .3,
+         y: 3,
+         skewX: 4,
+         ease: 'power3.inOut'
+      })
+   }
+
+   const handleTextHoverExit = (event: React.MouseEvent<HTMLAnchorElement, MouseEvent>) => {
+      gsap.to(event.target, {
+         duration: .3,
+         y: -3,
+         skewX: 0,
+         ease: 'power3.inOut'
+      })
+   }
+
    useEffect(() => {
       if(menuState.clicked || (menuState.clicked && !menuState.initial)){
          if(menu.current){
@@ -149,13 +167,31 @@ export const Hamburger: React.FC<IHamburger> = ({ menuState }) => {
                      <nav>
                         <ul>
                            <li>
-                              <Link ref={line1} to="/opportunities">Opportunities</Link>
+                              <Link
+                                 onMouseEnter={event => handleTextHover(event)}
+                                 onMouseLeave={event => handleTextHoverExit(event)}
+                                 ref={line1} to="/opportunities"
+                              >
+                                 Opportunities
+                              </Link>
                            </li>
                            <li>
-                              <Link ref={line2} to="/solutions">Solutions</Link>
+                              <Link
+                                 onMouseEnter={event => handleTextHover(event)}
+                                 onMouseLeave={event => handleTextHoverExit(event)}
+                                 ref={line2} to="/solutions"
+                              >
+                                 Solutions
+                              </Link>
                            </li>
                            <li>
-                              <Link ref={line3} to="/contact">Contact</Link>
+                              <Link
+                                 onMouseEnter={event => handleTextHover(event)}
+                                 onMouseLeave={event => handleTextHoverExit(event)}
+                                 ref={line3} to="/contact"
+                              >
+                                    Contact
+                              </Link>
                            </li>
                         </ul>
                      </nav>
