@@ -1,9 +1,25 @@
-import React from 'react'
+import React, { useEffect, useRef } from 'react'
 import { Link } from 'react-router-dom'
 
-export const Hamburger: React.FC = () => {
+import { IHamburger } from '../interfaces/hamburger'
+
+export const Hamburger: React.FC<IHamburger> = ({ menuState }) => {
+   const menu = useRef<HTMLDivElement>(null)
+
+   useEffect(() => {
+      if(menuState.clicked || (menuState.clicked && !menuState.initial)){
+         if(menu.current){
+            menu.current.style.display = 'block'
+         }
+      } else if(!menuState.clicked){
+         if(menu.current){
+            menu.current.style.display = 'none'
+         }
+      }
+   }, [menuState])
+
    return (
-      <div className="hamburger-menu">
+      <div ref={menu} className="hamburger-menu">
          <div className="menu-secondary-background-color">
 
          </div>
